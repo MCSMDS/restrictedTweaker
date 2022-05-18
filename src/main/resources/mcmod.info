@@ -1,0 +1,10 @@
+[
+  {
+    "modid": "restrictedtweaker",
+    "name": "restrictedTweaker",
+    "version": "${version}",
+    "authorList": [
+      "MCSMDS"
+    ]
+  }
+]
