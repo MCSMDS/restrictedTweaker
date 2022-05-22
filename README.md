@@ -8,9 +8,11 @@ https://www.mcbbs.net/thread-1323001-1-1.html
 
 # 2. 使用方法
 
-使用方法和CrT的添加配方类似，不过增加了 classname 作为参数，classname 可以有无数个，代表允许合成的classname。
+### CraftTweaker
 
-``` java
+使用方法和 CraftTweaker 的添加配方类似，不过增加了 classname 作为参数，classname 可以有无数个，代表允许合成的classname。
+
+``` javascript
 //引入模组
 import restrictedtweaker.restrictedRecipe;
 
@@ -21,10 +23,10 @@ val leggings = <minecraft:iron_leggings>;
 recipes.remove(leggings);
 //添加有序合成，但限制了必须要原版工作台的页面才能合成
 restrictedRecipe.addShaped("CTLeggings", leggings,
-[[iron,iron,iron],
- [iron,null,iron],
- [iron,null,iron]],
-["net.minecraft.inventory.ContainerWorkbench","net.minecraft.inventory.Container"]);
+[[iron, iron, iron],
+ [iron, null, iron],
+ [iron, null, iron]],
+["net.minecraft.inventory.ContainerWorkbench"]);
 ```
 
 这下就可以使用原版工作台来合成
@@ -35,13 +37,9 @@ restrictedRecipe.addShaped("CTLeggings", leggings,
 
 ![example2](doc/example2.png)
 
-由于判断方式来自于 classname，因此会被某些模组所逃课。
+API 参考:
 
-![example3](doc/example3.png)
-
-# 3. 文档参考
-
-``` java
+``` javascript
 restrictedRecipe.addShaped(output, ingredients, classname, function, action);
 restrictedRecipe.addShaped(name, output, ingredients, classname, function, action);
 
@@ -55,20 +53,70 @@ restrictedRecipe.addHiddenShaped(name, output, ingredients, classname, function,
 restrictedRecipe.addHiddenShapeless(name, output, ingredients, classname, function, action);
 ```
 
-# 4. 调试模式
+### KubeJS
 
-可以在模组设置里开启调试模式
+使用方法和 KubeJS 的添加配方类似，不过增加了 classname 作为参数，classname 可以有无数个，代表允许合成的classname。
+
+``` javascript
+//移除原有配方
+events.listen('recipes.crafting_table', function (event) {
+  event.remove('minecraft:stone')
+})
+
+//添加有序合成，但限制了必须要原版工作台的页面才能合成
+events.listen('restrictedtweaker.crafting_table', function (event) {
+  event.addShaped('minecraft:stone', [
+    'SAS',
+    'S S',
+    'SAS'
+  ], {
+    S: 'minecraft:sponge',
+    A: 'minecraft:apple'
+  }, ["net.minecraft.inventory.ContainerWorkbench"])
+})
+```
+
+API 参考:
+
+``` javascript
+event.addShaped(recipeID, output, pattern, ingredients, classname);
+event.addShaped(output, pattern, ingredients, classname);
+
+event.addShapeless(recipeID, output, ingredients, classname);
+event.addShapeless(output, ingredients, classname);
+
+event.add(recipeID, recipe, classname);
+```
+
+# 3. 调试模式
+
+如果不知道合成界面的 classname，可以在模组设置里开启调试模式。
 
 ![debug1](doc/debug1.png)
 
-这里分别有两行输出
-Alpha的那条是合成界面的 classname，打开合成界面显示。
-Beta的那条是合成所需额外的 classname，一般在正确摆放配方后但无法合成才显示。
+然后添加空 classname 的配方，以 KubeJS 为例：
+
+``` javascript
+events.listen('restrictedtweaker.crafting_table', function (event) {
+  event.addShaped('minecraft:stone', [
+    'SAS',
+    'S S',
+    'SAS'
+  ], {
+    S: 'minecraft:sponge',
+    A: 'minecraft:apple'
+  }, [])
+})
+```
+
+摆放合成会后出现该合成台所需求的 classname，填上后再重启，重复步骤，因为某些合成台可能会有多个 classname。
 
 ![debug2](doc/debug2.png)
 
-``` java
-//也就是说将classname设置为以下内容，便是设置为只能通过合成终端合成物品。
-["appeng.container.implementations.ContainerCraftingTerm",
-"appeng.container.slot.SlotCraftingTerm"]
+最后，只能通过样板终端制作样板并自动合成的 classname 如下：
+
+``` javascript
+//也就是说将classname设置为以下内容，便是设置为只能通过自动合成来物品。
+["appeng.container.implementations.ContainerPatternTerm",
+ "appeng.helpers.PatternHelper"]
 ```

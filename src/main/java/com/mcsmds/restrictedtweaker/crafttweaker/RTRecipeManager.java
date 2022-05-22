@@ -1,5 +1,9 @@
 package com.mcsmds.restrictedtweaker.crafttweaker;
 
+import java.util.List;
+
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.recipes.IRecipeAction;
@@ -8,11 +12,6 @@ import crafttweaker.mc1120.recipes.MCRecipeBase;
 import crafttweaker.mc1120.recipes.MCRecipeManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-
-import java.util.List;
-
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;

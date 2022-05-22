@@ -20,22 +20,21 @@ public class DebounceDebug {
 
     private static Map<String, Timer> timermap = new HashMap<String, Timer>();
 
-    public static void debug(String message, String classname) {
-        String timerid = message + classname;
-        if (timermap.get(timerid) != null) {
-            timermap.get(timerid).cancel();
+    public static void debug(String classname) {
+        if (timermap.get(classname) != null) {
+            timermap.get(classname).cancel();
         }
-        timermap.put(timerid, new Timer());
-        timermap.get(timerid).schedule(new TimerTask() {
+        timermap.put(classname, new Timer());
+        timermap.get(classname).schedule(new TimerTask() {
             @Override
             public void run() {
-                showDebug(message, classname);
-                timermap.remove(timerid);
+                showDebug(classname);
+                timermap.remove(classname);
             }
         }, 100);
     }
 
-    private static void showDebug(String message, String classname) {
+    private static void showDebug(String classname) {
         if (!RestrictedTweaker.Configs.debug || FMLCommonHandler.instance().getSide().isServer())
             return;
         Minecraft mc = Minecraft.getMinecraft();
@@ -51,7 +50,7 @@ public class DebounceDebug {
                 .setStyle(new Style().setColor(TextFormatting.YELLOW).setBold(true));
         ITextComponent part3 = new TextComponentString(classname);
 
-        guinewchat.printChatMessage(part1.appendSibling(part2).appendText(" " + message + " ").appendSibling(part3));
+        guinewchat.printChatMessage(part1.appendSibling(part2).appendText(" ").appendSibling(part3));
     }
 
 }

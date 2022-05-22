@@ -2,7 +2,7 @@ package com.mcsmds.restrictedtweaker.crafttweaker;
 
 import java.util.List;
 
-import com.mcsmds.restrictedtweaker.DebounceDebug;
+import com.mcsmds.restrictedtweaker.api.RTRecipe;
 
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -26,12 +26,7 @@ public class RTRecipeShaped extends MCRecipeShaped {
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-        String container = new Throwable().getStackTrace()[1].getClassName();
-        if (classname.contains(container)) {
-            return original.getCraftingResult(inv);
-        }
-        DebounceDebug.debug("Beta",container);
-        return ItemStack.EMPTY;
+        return RTRecipe.restrictedContainer(original.getCraftingResult(inv), classname);
     }
 
 }
