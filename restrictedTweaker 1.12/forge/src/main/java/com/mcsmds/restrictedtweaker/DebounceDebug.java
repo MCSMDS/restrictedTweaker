@@ -35,7 +35,7 @@ public class DebounceDebug {
     }
 
     private static void showDebug(String classname) {
-        if (!RestrictedTweaker.Configs.debug || FMLCommonHandler.instance().getSide().isServer())
+        if (!RestrictedTweakerForge.Configs.debug || FMLCommonHandler.instance().getSide().isServer())
             return;
         Minecraft mc = Minecraft.getMinecraft();
         GuiNewChat guinewchat = mc.ingameGUI.getChatGUI();

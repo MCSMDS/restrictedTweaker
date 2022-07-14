@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mcsmds.restrictedtweaker.RestrictedTweaker;
 
 import dev.latvian.kubejs.KubeJS;
 import dev.latvian.kubejs.event.EventJS;
@@ -35,7 +36,7 @@ public class RTCraftingTableRecipeEventJS extends EventJS {
 	}
 
 	private static String appendModId(String id) {
-		return id.indexOf(':') == -1 ? ("restrictedtweaker" + ":" + id) : id;
+		return id.indexOf(':') == -1 ? (RestrictedTweaker.MODID + ":" + id) : id;
 	}
 
 	public void addShaped(String recipeID, Object output, String[] pattern, Map<String, Object> ingredients,

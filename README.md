@@ -116,7 +116,7 @@ events.listen('restrictedtweaker.crafting_table', function (event) {
 最后，只能通过样板终端制作样板并自动合成的 classname 如下：
 
 ``` javascript
-//也就是说将classname设置为以下内容，便是设置为只能通过自动合成来物品。
+//也就是说将classname设置为以下内容，便是设置为只能通过自动合成来合成物品。
 ["appeng.container.implementations.ContainerPatternTerm",
  "appeng.helpers.PatternHelper"]
 ```

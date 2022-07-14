@@ -11,10 +11,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = "restrictedtweaker")
-public class RestrictedTweaker {
+@Mod(modid = RestrictedTweaker.MODID)
+public class RestrictedTweakerForge {
 
-    @Config(modid = "restrictedtweaker")
+    @Config(modid = RestrictedTweaker.MODID)
     public static class Configs {
         public static boolean debug;
     }
@@ -24,8 +24,8 @@ public class RestrictedTweaker {
 
         @SubscribeEvent
         public static void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
-            if (event.getModID().equals("restrictedtweaker")) {
-                ConfigManager.sync("restrictedtweaker", Config.Type.INSTANCE);
+            if (event.getModID().equals(RestrictedTweaker.MODID)) {
+                ConfigManager.sync(RestrictedTweaker.MODID, Config.Type.INSTANCE);
             }
         }
 

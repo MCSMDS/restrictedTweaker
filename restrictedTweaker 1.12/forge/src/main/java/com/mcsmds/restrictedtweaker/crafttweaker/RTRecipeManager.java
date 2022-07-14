@@ -2,6 +2,8 @@ package com.mcsmds.restrictedtweaker.crafttweaker;
 
 import java.util.List;
 
+import com.mcsmds.restrictedtweaker.RestrictedTweaker;
+
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
@@ -143,7 +145,8 @@ public class RTRecipeManager {
 
         @Override
         public void apply() {
-            ForgeRegistries.RECIPES.register(recipe.setRegistryName(new ResourceLocation("restrictedtweaker", name)));
+            ForgeRegistries.RECIPES
+                    .register(recipe.setRegistryName(new ResourceLocation(RestrictedTweaker.MODID, name)));
         }
     }
 

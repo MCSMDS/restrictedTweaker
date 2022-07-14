@@ -1,0 +1,7 @@
+pluginManagement {
+    repositories {
+    }
+}
+
+include ":common"
+include ":forge"

@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        maven { url = "https://maven.minecraftforge.net" }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.+"
+    }
+}
+apply plugin: "net.minecraftforge.gradle.forge"
+
+minecraft {
+    version = "${project.minecraft_version}-${project.forge_version}"
+    runDir = "run"
+    mappings = "${project.forge_mappings_version}"
+    makeObfSourceJar = false
+}
+
+dependencies {
+	implementation project(":common")
+    compile "curse.maven:kubejs-238086:3052392-sources"
+    compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675"
+}
+
+processResources {
+	inputs.property "version", project.version
+	filesMatching("mcmod.info") {
+		expand "version": project.version
+	}
+}
+
+sourceSets.main.java.srcDirs project(":common").sourceSets.main.java
+sourceSets.main.resources.srcDirs project(":common").sourceSets.main.resources
+jar.classifier = name
